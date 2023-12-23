@@ -16,8 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect(route('login'));
 });
+
+// Login
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login_store');
 
-Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'home'])->name('home');
-Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::middleware(['auth'])->group(function(){
+    // Home
+    Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'home'])->name('home');
+
+    // Logout
+    Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+});
