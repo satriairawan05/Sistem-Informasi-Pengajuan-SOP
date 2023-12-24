@@ -49,7 +49,20 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        //
+        $this->get_access_page();
+        if ($this->read == 1) {
+            try {
+                return view('admin.setting.departemen.index',[
+                    'name' => $this->name,
+                    'departemen' => Departemen::paginate(10),
+                    'pages' => $this->get_access($this->name, auth()->user()->group_id)
+                ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 
     /**
@@ -57,7 +70,18 @@ class DepartemenController extends Controller
      */
     public function create()
     {
-        //
+        $this->get_access_page();
+        if ($this->create == 1) {
+            try {
+                return view('admin.setting.departemen.create',[
+                    'name' => $this->name
+                ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 
     /**
@@ -65,7 +89,20 @@ class DepartemenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->get_access_page();
+        if ($this->create == 1) {
+            try {
+                Departemen::creeate([
+                    'departemen_name' => $request->input('departemen_name'),
+                ]);
+
+                return redirect()->to(route('departemen.index'))->with('success','Added successfully!');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 
     /**
@@ -81,7 +118,19 @@ class DepartemenController extends Controller
      */
     public function edit(Departemen $departemen)
     {
-        //
+        $this->get_access_page();
+        if ($this->update == 1) {
+            try {
+                return view('admin.setting.departemen.edit',[
+                    'name' => $this->name,
+                    'departemen' => $departemen->find(request()->segment(2))
+                ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 
     /**
@@ -89,7 +138,21 @@ class DepartemenController extends Controller
      */
     public function update(Request $request, Departemen $departemen)
     {
-        //
+        $this->get_access_page();
+        if ($this->update == 1) {
+            try {
+                $data = $departemen->find(request()->segment(2));
+                Departemen::where('departemen_id', $data->departemen_id)->update([
+                    'departemen_name' => $request->input('departemen_name'),
+                ]);
+
+                return redirect()->to(route('departemen.index'))->with('success','Updated successfully!');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 
     /**
@@ -97,6 +160,18 @@ class DepartemenController extends Controller
      */
     public function destroy(Departemen $departemen)
     {
-        //
+        $this->get_access_page();
+        if ($this->delete == 1) {
+            try {
+                $data = $departemen->find(request()->segment(2));
+                Departemen::destroy($data->departemen_id);
+
+                return redirect()->back()->with('success','Deleted successfully!');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
     }
 }

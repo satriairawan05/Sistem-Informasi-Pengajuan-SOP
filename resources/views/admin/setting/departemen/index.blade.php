@@ -1,21 +1,89 @@
 @extends('admin.layout.app')
 
+@php
+    $create = 0;
+    $read = 0;
+    $update = 0;
+    $delete = 0;
+
+    foreach ($pages as $r) {
+        if ($r->page_name == $name) {
+            if ($r->action == 'Create') {
+                $create = $r->access;
+            }
+
+            if ($r->action == 'Read') {
+                $read = $r->access;
+            }
+
+            if ($r->action == 'Update') {
+                $update = $r->access;
+            }
+
+            if ($r->action == 'Delete') {
+                $delete = $r->access;
+            }
+        }
+    }
+@endphp
+
 @section('app')
     <section class="section">
         <div class="section-header">
-            <h1>Name</h1>
+            <h1>{{ $name }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                <div class="breadcrumb-item">Name</div>
+                <div class="breadcrumb-item">{{ $name }}</div>
             </div>
         </div>
 
         <div class="section-body">
             <div class="card">
-                <div class="card-body">
-                    <p class="text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam adipisci
-                        doloribus perferendis ipsam accusamus inventore tenetur quo tempora magni aut.</p>
-                </div>
+                @if ($create == 1)
+                    <div class="d-flex justify-content-end mx-3 my-2">
+                        <a href="{{ route('departemen.create') }}" class="btn btn-sm btn-success"><i
+                                class="fa fa-plus"></i></a>
+                    </div>
+                @endif
+                @if ($read == 1)
+                    <div class="card-body">
+                        <table class="table-bordered table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($departemen as $d)
+                                    @php
+                                        // $iterationNumber = ($departemen->currentPage() - 1) * $departemen->perPage() + $loop->iteration;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $d->departemen_name }}</td>
+                                        <td>
+                                            @if ($update == 1)
+                                                <a href="{{ route('departemen.edit', $d->departemen_id) }}"
+                                                    class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                            @endif
+                                            @if ($delete == 1)
+                                                <form action="{{ route('departemen.destroy', $d->departemen_id) }}"
+                                                    method="post" class="d-inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
