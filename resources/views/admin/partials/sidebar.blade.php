@@ -22,16 +22,16 @@
                     <span>JSA</span></a>
             </li>
             <li class="menu-header">Setting</li>
-            <li class="dropdown">
+            <li class="dropdown {{ Request::is('departemen*') ? 'active' : '' }}">
                 <a href="{{ route('departemen.index') }}" class="nav-link"><i class="fas fa-building"></i>
                     <span>Departemen</span></a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {{ Request::is('user*') ? 'active' : '' }}">
                 <a href="{{ route('user.index') }}" class="nav-link"><i class="far fa-user"></i>
                     <span>Users</span></a>
             </li>
             @if (auth()->user()->group_id == 1)
-                <li class="dropdown">
+                <li class="dropdown {{ Request::is('role*') ? 'active' : '' }}">
                     <a href="{{ route('role.index') }}" class="nav-link"><i class="fas fa-user-cog"></i>
                         <span>Roles</span></a>
                 </li>

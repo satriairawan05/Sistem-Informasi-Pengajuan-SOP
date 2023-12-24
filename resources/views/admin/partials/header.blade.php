@@ -16,6 +16,13 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+    <style>
+        .horizontal {
+            border: 1px solid white;
+            height: 40px;
+            margin: 0 10px;
+        }
+    </style>
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>

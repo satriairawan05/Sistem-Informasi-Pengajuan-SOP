@@ -9,6 +9,9 @@
                     </li>
                 </ul>
             </form>
+            <ul class="navbar-nav narbar-left">
+                <div class="mt-1" style="margin-top: 2px;"><i class="ti-time text-white"></i>&nbsp;<span id="waktu" class="text-white"></span></div> <div class="horizontal"></div>
+            </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
