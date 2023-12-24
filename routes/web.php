@@ -25,6 +25,15 @@ Route::middleware(['auth'])->group(function(){
     // Home
     Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'home'])->name('home');
 
+    // Departemen
+    Route::resource('departemen', \App\Http\Controllers\Admin\DepartemenController::class);
+
+    // Role
+    Route::resource('role', \App\Http\Controllers\Admin\GroupController::class);
+
+    // User
+    Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
+
     // Logout
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });
