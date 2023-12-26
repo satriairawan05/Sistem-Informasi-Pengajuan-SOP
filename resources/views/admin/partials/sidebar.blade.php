@@ -18,8 +18,20 @@
                     <span>SOP</span></a>
             </li>
             <li class="dropdown">
+                <a href="#" class="nav-link"><i class="fas fa-envelope"></i>
+                    <span>Interaksi Kerja</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link"><i class="fas fa-envelope"></i>
+                    <span>Formulir</span></a>
+            </li>
+            <li class="dropdown">
                 <a href="#" class="nav-link"><i class="fas fa-envelope-open"></i>
                     <span>JSA</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link"><i class="fas fa-envelope-open"></i>
+                    <span>IBPR</span></a>
             </li>
             <li class="menu-header">Setting</li>
             <li class="dropdown {{ Request::is('departemen*') ? 'active' : '' }}">

@@ -33,6 +33,48 @@ class PageSeeder extends Seeder
             'action' => 'Delete',
         ]);
 
+        // Interaksi Kerja
+        \App\Models\Page::create([
+            'page_name' => 'Interaksi Kerja',
+            'action' => 'Create',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Interaksi Kerja',
+            'action' => 'Read',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Interaksi Kerja',
+            'action' => 'Update',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Interaksi Kerja',
+            'action' => 'Delete',
+        ]);
+
+        // Formulir
+        \App\Models\Page::create([
+            'page_name' => 'Formulir',
+            'action' => 'Create',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Formulir',
+            'action' => 'Read',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Formulir',
+            'action' => 'Update',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'Formulir',
+            'action' => 'Delete',
+        ]);
+
         // JSA
         \App\Models\Page::create([
             'page_name' => 'JSA',
@@ -51,6 +93,27 @@ class PageSeeder extends Seeder
 
         \App\Models\Page::create([
             'page_name' => 'JSA',
+            'action' => 'Delete',
+        ]);
+
+        // IBPR
+        \App\Models\Page::create([
+            'page_name' => 'IBPR',
+            'action' => 'Create',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'IBPR',
+            'action' => 'Read',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'IBPR',
+            'action' => 'Update',
+        ]);
+
+        \App\Models\Page::create([
+            'page_name' => 'IBPR',
             'action' => 'Delete',
         ]);
 
