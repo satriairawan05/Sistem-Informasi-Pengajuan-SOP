@@ -116,9 +116,9 @@ class UserController extends Controller
                         'departemen_id' => $request->input('departemen_id'),
                     ]);
 
-                    return redirect('user')->with('success', 'Added Account Successfully');
+                    return redirect(route('account.index'))->with('success', 'Added Account Successfully');
                 } else {
-                    return redirect('dashboard')->with('failed', $validated->getMessageBag());
+                    return redirect()->back()->with('failed', $validated->getMessageBag());
                 }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
@@ -187,9 +187,9 @@ class UserController extends Controller
                         'departemen_id' => $request->input('departemen_id'),
                     ]);
 
-                    return redirect('user')->with('success', 'Updated Account Successfully');
+                    return redirect(route('account.index'))->with('success', 'Updated Account Successfully');
                 } else {
-                    return redirect('dashboard')->with('failed', $validated->getMessageBag());
+                    return redirect()->back()->with('failed', $validated->getMessageBag());
                 }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
@@ -210,7 +210,7 @@ class UserController extends Controller
                 $data = $user->find(request()->segment(2));
                 User::destroy($data->id);
 
-                return redirect('user')->with('success', 'Deleted Account Successfully');
+                return redirect(route('account.index'))->with('success', 'Deleted Account Successfully');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

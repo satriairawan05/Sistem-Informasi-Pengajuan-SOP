@@ -41,7 +41,7 @@
             <div class="card">
                 @if ($create == 1)
                     <div class="d-flex justify-content-end mx-3 my-2">
-                        <a href="{{ route('user.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('account.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
                     </div>
                 @endif
                 @if ($read == 1)
@@ -72,11 +72,11 @@
                                         <td>{{ $user->departemen_name ?? 'Not Found' }}</td>
                                         <td>
                                             @if ($update == 1)
-                                                <a href="{{ route('user.edit', $user->id) }}"
+                                                <a href="{{ route('account.edit', $user->id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
                                             @if ($delete == 1)
-                                                <form action="{{ route('user.destroy', $user->id) }}" method="post"
+                                                <form action="{{ route('account.destroy', $user->id) }}" method="post"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('delete')
@@ -100,9 +100,16 @@
 @push('js')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            $("#myTable").dataTable({
+                "columnDefs": [{
+                    "sortable": true
+                }]
+            });
         });
     </script>
 @endpush

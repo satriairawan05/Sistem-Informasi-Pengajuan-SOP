@@ -6,7 +6,7 @@
             <h1>Name</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('user.index') }}">{{ $name }}</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('account.index') }}">{{ $name }}</a></div>
                 <div class="breadcrumb-item">Edit</div>
             </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('user.update',$user->id) }}" method="post">
+                    <form action="{{ route('account.update',$user->id) }}" method="post">
                         @csrf
                         <div class="form-group">
                             <div class="row mb-3">

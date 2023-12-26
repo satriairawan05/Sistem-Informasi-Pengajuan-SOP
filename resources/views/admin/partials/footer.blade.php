@@ -10,6 +10,55 @@
   <!-- JS Libraies -->
   @stack('js')
 
+  <!-- SweetAlert -->
+  <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
+  @if (session('success'))
+      <script type="text/javascript">
+          let timerInterval;
+          Swal.fire({
+              title: "Success!",
+              text: "{{ session('success') }}",
+              timer: 5000,
+              icon: 'success',
+              timerProgressBar: true,
+              confirmButtonText: 'Oke',
+              didOpen: () => {
+                  timerInterval = setInterval(() => {}, 100)
+              },
+              willClose: () => {
+
+              }
+          }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+
+              }
+          });
+      </script>
+  @endif
+  @if (session('failed'))
+      <script type="text/javascript">
+          let timerInterval;
+          Swal.fire({
+              title: "Fail!",
+              text: "{{ session('failed') }}",
+              timer: 500000,
+              icon: 'error',
+              timerProgressBar: true,
+              confirmButtonText: 'Oke',
+              didOpen: () => {
+                  timerInterval = setInterval(() => {}, 100)
+              },
+              willClose: () => {
+
+              }
+          }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+
+              }
+          });
+      </script>
+  @endif
+
   <!-- Page Specific JS File -->
   <script src="{{ asset('assets/js/time.min.js') }}"></script>
 

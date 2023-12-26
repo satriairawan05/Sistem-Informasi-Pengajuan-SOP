@@ -26,8 +26,8 @@
                 <a href="{{ route('departemen.index') }}" class="nav-link"><i class="fas fa-building"></i>
                     <span>Departemen</span></a>
             </li>
-            <li class="dropdown {{ Request::is('user*') ? 'active' : '' }}">
-                <a href="{{ route('user.index') }}" class="nav-link"><i class="far fa-user"></i>
+            <li class="dropdown {{ Request::is('account*') ? 'active' : '' }}">
+                <a href="{{ route('account.index') }}" class="nav-link"><i class="far fa-user"></i>
                     <span>Users</span></a>
             </li>
             @if (auth()->user()->group_id == 1)

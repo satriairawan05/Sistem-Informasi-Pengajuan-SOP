@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Melempar ke Halaman Login
 Route::get('/', function () {
     return redirect(route('login'));
 });
@@ -21,6 +22,7 @@ Route::get('/', function () {
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login_store');
 
+// Setelah Login
 Route::middleware(['auth'])->group(function(){
     // Home
     Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'home'])->name('home');
@@ -32,7 +34,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('role', \App\Http\Controllers\Admin\GroupController::class);
 
     // User
-    Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
+    Route::resource('account', \App\Http\Controllers\Admin\UserController::class);
 
     // Logout
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
