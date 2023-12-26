@@ -49,13 +49,37 @@
                         <table class="table-bordered table" id="myTable">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Nomor</th>
+                                    <th>Departemen</th>
+                                    <th>Handle</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                </tr>
+                                @foreach ($sop as $s)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $s->sop_nama }}</td>
+                                        <td>{{ $s->sop_nomor }}</td>
+                                        <td></td>
+                                        <td>
+                                            @if ($this->update == 1)
+                                                <a href="{{ route('sop.edit', $s->sop_id) }}"
+                                                    class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                            @endif
+                                            @if ($this->delete == 1)
+                                                <form action="{{ route('sop.destroy', $s->sop_id) }}" method="post"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

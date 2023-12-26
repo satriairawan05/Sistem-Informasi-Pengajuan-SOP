@@ -162,7 +162,7 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        if (auth()->user()->group_id == 1) {
+        if ($group->group_id != 1) {
             try {
                 Group::where('group_id', $group->group_id)->delete();
 

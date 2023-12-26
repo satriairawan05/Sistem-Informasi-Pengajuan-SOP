@@ -41,7 +41,7 @@
             <div class="card">
                 @if ($create == 1)
                     <div class="d-flex justify-content-end mx-3 my-2">
-                        <a href="{{ route('jsa.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('formulir.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
                     </div>
                 @endif
                 @if ($read == 1)
@@ -57,19 +57,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($jsa as $s)
+                                @foreach ($formulir as $s)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $s->jsa_nama }}</td>
-                                        <td>{{ $s->jsa_nomor }}</td>
+                                        <td>{{ $s->form_nama }}</td>
+                                        <td>{{ $s->form_nomor }}</td>
                                         <td></td>
                                         <td>
                                             @if ($this->update == 1)
-                                                <a href="{{ route('jsa.edit', $s->jsa_id) }}"
+                                                <a href="{{ route('formulir.edit', $s->form_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
                                             @if ($this->delete == 1)
-                                                <form action="{{ route('jsa.destroy', $s->jsa_id) }}" method="post"
+                                                <form action="{{ route('formulir.destroy', $s->form_id) }}" method="post"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('delete')

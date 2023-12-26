@@ -13,24 +13,24 @@
                 <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Master Data</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link"><i class="fas fa-envelope"></i>
+            <li class="dropdown {{ Request::is('sop*') ? 'active' : '' }}">
+                <a href="{{ route('sop.index') }}" class="nav-link"><i class="fas fa-envelope"></i>
                     <span>SOP</span></a>
             </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link"><i class="fas fa-envelope"></i>
+            <li class="dropdown {{ Request::is('interaksi_kerja*') ? 'active' : '' }}">
+                <a href="{{ route('interaksi_kerja.index') }}" class="nav-link"><i class="fas fa-envelope"></i>
                     <span>Interaksi Kerja</span></a>
             </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link"><i class="fas fa-envelope"></i>
+            <li class="dropdown {{ Request::is('formulir*') ? 'active' : '' }}">
+                <a href="{{ route('formulir.index') }}" class="nav-link"><i class="fas fa-envelope"></i>
                     <span>Formulir</span></a>
             </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link"><i class="fas fa-envelope-open"></i>
+            <li class="dropdown {{ Request::is('jsa*') ? 'active' : '' }}">
+                <a href="{{ route('jsa.index') }}" class="nav-link"><i class="fas fa-envelope"></i>
                     <span>JSA</span></a>
             </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link"><i class="fas fa-envelope-open"></i>
+            <li class="dropdown {{ Request::is('ibpr*') ? 'active' : '' }}">
+                <a href="{{ route('ibpr.index') }}" class="nav-link"><i class="fas fa-envelope"></i>
                     <span>IBPR</span></a>
             </li>
             <li class="menu-header">Setting</li>

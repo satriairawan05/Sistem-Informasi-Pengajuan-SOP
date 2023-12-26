@@ -33,6 +33,21 @@ Route::middleware(['auth'])->group(function(){
     // Role
     Route::resource('role', \App\Http\Controllers\Admin\GroupController::class);
 
+    // Formulir
+    Route::resource('formulir',\App\Http\Controllers\Admin\FormulirController::class);
+
+    // Interaksi Kerja
+    Route::resource('interaksi_kerja', \App\Http\Controllers\Admin\InteraksiKerjaController::class);
+
+    // IBPR
+    Route::resource('ibpr',\App\Http\Controllers\Admin\IBPRController::class);
+
+    // JSA
+    Route::resource('jsa',\App\Http\Controllers\Admin\JSAController::class);
+
+    // SOP
+    Route::resource('sop',\App\Http\Controllers\Admin\SOPController::class);
+
     // User
     Route::resource('account', \App\Http\Controllers\Admin\UserController::class);
     Route::get('account/{user}/change', [\App\Http\Controllers\Admin\UserController::class, 'showChangeForm'])->name('account.change');

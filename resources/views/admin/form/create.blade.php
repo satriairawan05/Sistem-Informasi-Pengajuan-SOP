@@ -6,7 +6,7 @@
             <h1>Name</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('jsa.index') }}">{{ $name }}</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('formulir.index') }}">{{ $name }}</a></div>
                 <div class="breadcrumb-item">Create</div>
             </div>
         </div>
@@ -14,19 +14,21 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('jsa.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('formulir.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-2">
-                                    <label for="jsa_nama">Name <span class="text-danger">*</span> </label>
+                                    <label for="form_nama">Name <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-10">
                                     <input type="text"
-                                        class="form-control form-control-sm @error('jsa_nama') is-invalid @enderror"
-                                        id="jsa_nama" placeholder="Masukan Nama" value="{{ old('jsa_nama') }}"
-                                        name="jsa_nama" required>
-                                    @error('jsa_nama')
+                                        class="form-control form-control-sm @error('form_nama')
+                                    is-invalid
+                                @enderror"
+                                        id="form_nama" placeholder="Masukan Nama" value="{{ old('form_nama') }}"
+                                        name="form_nama" required>
+                                    @error('form_nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -35,16 +37,16 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-2">
-                                    <label for="jsa_nomor">Nomor <span class="text-danger">*</span> </label>
+                                    <label for="form_nomor">Nomor <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-10">
                                     <input type="text"
-                                        class="form-control form-control-sm @error('jsa_nomor')
+                                        class="form-control form-control-sm @error('form_nomor')
                                     is-invalidss
                                 @enderror"
-                                        id="jsa_nomor" placeholder="Masukan Nama" value="{{ old('jsa_nomor') }}"
-                                        name="jsa_nomor" required>
-                                    @error('jsa_nomor')
+                                        id="form_nomor" placeholder="Masukan Nama" value="{{ old('form_nomor') }}"
+                                        name="form_nomor" required>
+                                    @error('form_nomor')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -72,16 +74,16 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-2">
-                                    <label for="jsa_file">File</label>
+                                    <label for="form_file">File</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="file" name="jsa_file" id="jsa_file"
+                                    <input type="file" name="form_file" id="form_file"
                                         class="form-control form-control-file">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center">
-                                    <a href="{{ route('jsa.index') }}" class="btn btn-sm btn-info mx-2"><i
+                                    <a href="{{ route('formulir.index') }}" class="btn btn-sm btn-info mx-2"><i
                                             class="fa fa-reply-all"></i></a>
                                     <button type="submit" class="btn btn-sm btn-success">Submit</button>
                                 </div>
