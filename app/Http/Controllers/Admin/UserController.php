@@ -200,6 +200,41 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function showChangeForm(User $user)
+    {
+        return view('admin.setting.user.change',[
+            'name' => $this->name,
+            'user' => $user
+        ]);
+    }
+
+     /**
+     * Update the specified resource in storage.
+     */
+    public function changePassword(Request $request, User $user)
+    {
+        try {
+            $validated = \Illuminate\Support\Facades\Validator::make($request->all(), [
+                'password' => ['required', 'string', 'min:3', 'confirmed']
+            ]);
+
+            if (!$validated->fails()) {
+                User::where('id', $user->id)->update([
+                    'password' => bcrypt($request->input('password')),
+                ]);
+
+                return redirect(route('account.index'))->with('success', 'Updated Successfully');
+            } else {
+                return redirect()->back()->with('failed', $validated->getMessageBag());
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('failed', $e->getMessage());
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)

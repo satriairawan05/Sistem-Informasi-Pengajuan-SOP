@@ -1,4 +1,8 @@
 @include('admin.partials.header')
+@php
+    $user = \App\Models\User::where('id', auth()->user()->id)->first();
+    $isOnline = $user->id == auth()->user()->id;
+@endphp
 <div id="app">
     <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
@@ -10,16 +14,22 @@
                 </ul>
             </form>
             <ul class="navbar-nav narbar-left">
-                <div class="mt-1" style="margin-top: 2px;"><i class="ti-time text-white"></i>&nbsp;<span id="waktu" class="text-white"></span></div> <div class="horizontal"></div>
+                <div class="mt-1" style="margin-top: 2px;"><i class="ti-time text-white"></i>&nbsp;<span
+                        id="waktu" class="text-white"></span></div>
+                <div class="horizontal"></div>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+                        <figure class="avatar avatar-sm">
+                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                class="rounded-circle mr-1">
+                            <i class="avatar-presence @if ($isOnline) online @endif"></i>
+                        </figure>
                         <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" class="dropdown-item has-icon">
+                        <a href="{{ route('account.change', auth()->user()->id) }}" class="dropdown-item has-icon">
                             <i class="fas fa-cog"></i> Change Password
                         </a>
                         <div class="dropdown-divider"></div>
@@ -42,5 +52,4 @@
         @include('admin.partials.watermark')
     </div>
 </div>
-
 @include('admin.partials.footer')

@@ -16,6 +16,7 @@
                 <div class="card-body">
                     <form action="{{ route('account.update',$user->id) }}" method="post">
                         @csrf
+                        @method('put')
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-6">
@@ -131,7 +132,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center">
-                                    <a href="{{ route('user.index') }}" class="btn btn-sm btn-info mx-2"><i
+                                    <a href="{{ route('account.index') }}" class="btn btn-sm btn-info mx-2"><i
                                             class="fa fa-reply-all"></i></a>
                                     <button type="submit" class="btn btn-sm btn-success">Submit</button>
                                 </div>

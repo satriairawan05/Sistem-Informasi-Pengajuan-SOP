@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function(){
 
     // User
     Route::resource('account', \App\Http\Controllers\Admin\UserController::class);
+    Route::get('account/{user}/change', [\App\Http\Controllers\Admin\UserController::class, 'showChangeForm'])->name('account.change');
+    Route::put('account/{user}/change_password', [\App\Http\Controllers\Admin\UserController::class, 'changePassword'])->name('account.change_password');
 
     // Logout
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
