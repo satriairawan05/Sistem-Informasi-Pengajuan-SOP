@@ -201,7 +201,25 @@ class InteraksiKerjaController extends Controller
                 ]);
 
                 if (!$validate->fails()) {
-                    //
+                    $data = $interaksiKerja->find(request()->segment(2));
+                    $file = $request->file('ik_file');
+                    if ($request->hasFile('ik_file')) {
+                        if ($data->ik_file != $file) {
+                            \Illuminate\Support\Facades\Storage::delete($data->ik_file);
+                        }
+                        $filePath = $file->storeAs('Interaksi_Kerja', time() . '.' . $file->getClientOriginalExtension());
+                    } else {
+                        $filePath = $data->ik_file;
+                    }
+
+                    InteraksiKerja::where('ik_id',$data->ik_id)->update([
+                        'ik_nama' => $request->input('ik_nama'),
+                        'ik_nomor' => $request->input('ik_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'ik_file' => $filePath,
+                    ]);
+
+                    return redirect()->to(route('interaksi_kerja.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }

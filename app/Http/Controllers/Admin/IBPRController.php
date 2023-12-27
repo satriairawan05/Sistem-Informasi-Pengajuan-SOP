@@ -201,7 +201,25 @@ class IBPRController extends Controller
                 ]);
 
                 if (!$validate->fails()) {
-                    //
+                    $data = $iBPR->find(request()->segment(2));
+                    $file = $request->file('ibpr_file');
+                    if ($request->hasFile('ibpr_file')) {
+                        if ($data->ibpr_file != $file) {
+                            \Illuminate\Support\Facades\Storage::delete($data->ibpr_file);
+                        }
+                        $filePath = $file->storeAs('IBPR', time() . '.' . $file->getClientOriginalExtension());
+                    } else {
+                        $filePath = $data->bpr_file;
+                    }
+
+                    IBPR::where('ibpr_id',$data->ibpr_id)->update([
+                        'ibpr_nama' => $request->input('ibpr_nama'),
+                        'ibpr_nomor' => $request->input('ibpr_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'ibpr_file' => $filePath,
+                    ]);
+
+                    return redirect()->to(route('ibpr.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }

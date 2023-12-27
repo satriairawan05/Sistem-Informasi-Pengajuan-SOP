@@ -201,7 +201,25 @@ class FormulirController extends Controller
                 ]);
 
                 if (!$validate->fails()) {
-                    //
+                    $data = $formulir->find(request()->segment(2));
+                    $file = $request->file('form_file');
+                    if ($request->hasFile('form_file')) {
+                        if ($data->form_file != $file) {
+                            \Illuminate\Support\Facades\Storage::delete($data->form_file);
+                        }
+                        $filePath = $file->storeAs('FORM', time() . '.' . $file->getClientOriginalExtension());
+                    } else {
+                        $filePath = $data->form_file;
+                    }
+
+                    Formulir::where('form_id',$data->form_id)->update([
+                        'form_nama' => $request->input('form_nama'),
+                        'form_nomor' => $request->input('form_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'form_file' => $filePath,
+                    ]);
+
+                    return redirect()->to(route('formulir.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }

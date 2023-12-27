@@ -201,7 +201,25 @@ class SOPController extends Controller
                 ]);
 
                 if (!$validate->fails()) {
-                    //
+                    $data = $sOP->find(request()->segment(2));
+                    $file = $request->file('sop_file');
+                    if ($request->hasFile('sop_file')) {
+                        if ($data->sop_file != $file) {
+                            \Illuminate\Support\Facades\Storage::delete($data->sop_file);
+                        }
+                        $filePath = $file->storeAs('SOP', time() . '.' . $file->getClientOriginalExtension());
+                    } else {
+                        $filePath = $data->sop_file;
+                    }
+
+                    SOP::where('sop_id',$data->sop_id)->update([
+                        'sop_nama' => $request->input('sop_nama'),
+                        'sop_nomor' => $request->input('sop_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'sop_file' => $filePath,
+                    ]);
+
+                    return redirect()->to(route('sop.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }

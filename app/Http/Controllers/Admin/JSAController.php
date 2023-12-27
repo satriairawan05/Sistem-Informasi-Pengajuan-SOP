@@ -201,7 +201,25 @@ class JSAController extends Controller
                 ]);
 
                 if (!$validate->fails()) {
-                    //
+                    $data = $jSA->find(request()->segment(2));
+                    $file = $request->file('jsa_file');
+                    if ($request->hasFile('jsa_file')) {
+                        if ($data->jsa_file != $file) {
+                            \Illuminate\Support\Facades\Storage::delete($data->jsa_file);
+                        }
+                        $filePath = $file->storeAs('JSA', time() . '.' . $file->getClientOriginalExtension());
+                    } else {
+                        $filePath = $data->jsa_file;
+                    }
+
+                    JSA::where('jsa_id',$data->jsa_id)->update([
+                        'jsa_nama' => $request->input('jsa_nama'),
+                        'jsa_nomor' => $request->input('jsa_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'jsa_file' => $filePath,
+                    ]);
+
+                    return redirect()->to(route('jsa.index'))->with('success', 'Data Updated!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }

@@ -100,10 +100,10 @@
 
                 if (passwordInput.attr('type') === 'text') {
                     passwordInput.attr('type', 'password');
-                    togglePassword.removeClass('ti-unlock').addClass('ti-lock');
+                    togglePassword.removeClass('fa-unlock').addClass('fa-lock');
                 } else if (passwordInput.attr('type') === 'password') {
                     passwordInput.attr('type', 'text');
-                    togglePassword.removeClass('ti-lock').addClass('ti-unlock');
+                    togglePassword.removeClass('fa-lock').addClass('fa-unlock');
                 }
             });
 
@@ -114,10 +114,10 @@
 
                 if (passwordConfirmInput.attr('type') === 'text') {
                     passwordConfirmInput.attr('type', 'password');
-                    toggleConfirmPassword.removeClass('ti-unlock').addClass('ti-lock');
+                    toggleConfirmPassword.removeClass('fa-unlock').addClass('fa-lock');
                 } else if (passwordConfirmInput.attr('type') === 'password') {
                     passwordConfirmInput.attr('type', 'text');
-                    toggleConfirmPassword.removeClass('ti-lock').addClass('ti-unlock');
+                    toggleConfirmPassword.removeClass('fa-lock').addClass('fa-unlock');
                 }
             });
         });
