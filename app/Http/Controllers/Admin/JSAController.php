@@ -52,7 +52,11 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
-
+                return view('admin.jsa.index', [
+                    'name' => $this->name,
+                    'jsa' => JSA::leftJoin('departemens','jsas.departemen_id','=','departemens.departemen_id')->get(),
+                    'pages' => $this->get_access($this->name, auth()->user()->group_id)
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -69,7 +73,10 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-
+                return view('admin.jsa.create', [
+                    'name' => $this->name,
+                    'departemen' => \App\Models\Departemen::all()
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -86,7 +93,25 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                    'jsa_nama' => 'required',
+                    'jsa_nomor' => 'required',
+                    'departemen_id' => 'required'
+                ]);
 
+                if(!$validate->fails()){
+                    $file = $request->file('jsa_file');
+                    JSA::create([
+                        'jsa_nama' => $request->input('jsa_nama'),
+                        'jsa_nomor' => $request->input('jsa_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'jsa_file' => $file->storeAs('JSA', time() . '.' . $file->getClientOriginalExtension()),
+                    ]);
+
+                    return redirect()->to(route('jsa.index'))->with('success','Data Saved!');
+                } else {
+                    return redirect()->back()->with('failed', $validate->getMessageBag());
+                }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -103,7 +128,11 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
-
+                $data = $jSA->find(request()->segment(2));
+                return view('admin.jsa.show', [
+                    'name' => $this->name,
+                    'file' => asset('storage/'.$data->jsa_file)
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -120,7 +149,11 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-
+                return view('admin.jsa.edit', [
+                    'name' => $this->name,
+                    'departemen' => \App\Models\Departemen::all(),
+                    'jsa' => $jSA->find(request()->segment(2))
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -137,7 +170,17 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                    'jsa_nama' => 'required',
+                    'jsa_nomor' => 'required',
+                    'departemen_id' => 'required'
+                ]);
 
+                if(!$validate->fails()){
+                    //
+                } else {
+                    return redirect()->back()->with('failed', $validate->getMessageBag());
+                }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -154,7 +197,14 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->delete == 1) {
             try {
+                $data = $jSA->find(request()->segment(2));
+                $filePath = $data->jsa_file;
+                if ($filePath && \Illuminate\Support\Facades\Storage::exists($filePath)) {
+                    \Illuminate\Support\Facades\Storage::delete($filePath);
+                }
+                JSA::destroy($data->jsa_id);
 
+                return redirect()->back()->with('success','Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

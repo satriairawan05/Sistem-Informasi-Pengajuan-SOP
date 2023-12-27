@@ -62,10 +62,10 @@
                                         @foreach ($departemen as $d)
                                             @if (old('departemen_id') == $d->departemen_id)
                                                 <option value="{{ $d->departemen_id }}" selected>
-                                                    {{ $d->departemen_name }}
+                                                    {{ $d->departemen_nama }}
                                                 </option>
                                             @else
-                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_name }}
+                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_nama }}
                                                 </option>
                                             @endif
                                         @endforeach

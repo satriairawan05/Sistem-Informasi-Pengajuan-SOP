@@ -33,6 +33,9 @@ Route::middleware(['auth'])->group(function(){
     // Role
     Route::resource('role', \App\Http\Controllers\Admin\GroupController::class);
 
+    // Download
+    Route::get('file/{file}/download',[\App\Http\Controllers\Admin\DownloadController::class, 'download'])->name('file.download');
+
     // Formulir
     Route::resource('formulir',\App\Http\Controllers\Admin\FormulirController::class);
 

@@ -41,7 +41,8 @@
             <div class="card">
                 @if ($create == 1)
                     <div class="d-flex justify-content-end mx-3 my-2">
-                        <a href="{{ route('formulir.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('formulir.create') }}" class="btn btn-sm btn-success"><i
+                                class="fa fa-plus"></i></a>
                     </div>
                 @endif
                 @if ($read == 1)
@@ -64,11 +65,15 @@
                                         <td>{{ $s->form_nomor }}</td>
                                         <td></td>
                                         <td>
-                                            @if ($this->update == 1)
+                                            <a href="{{ route('formulir.show', $s->form_id) }}" class="btn btn-sm btn-info"
+                                                target="__blank"><i class="fa fa-file-pdf"></i></a>
+                                            <a href="{{ route('file.download', ['file' => $s->form_file]) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            @if ($update == 1)
                                                 <a href="{{ route('formulir.edit', $s->form_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
-                                            @if ($this->delete == 1)
+                                            @if ($delete == 1)
                                                 <form action="{{ route('formulir.destroy', $s->form_id) }}" method="post"
                                                     class="d-inline">
                                                     @csrf

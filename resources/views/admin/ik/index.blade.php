@@ -60,16 +60,20 @@
                                 @foreach ($interaksi_kerja as $s)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $s->interaksi_kerja_nama }}</td>
-                                        <td>{{ $s->interaksi_kerja_nomor }}</td>
+                                        <td>{{ $s->ik_nama }}</td>
+                                        <td>{{ $s->ik_nomor }}</td>
                                         <td></td>
                                         <td>
-                                            @if ($this->update == 1)
-                                                <a href="{{ route('interaksi_kerja.edit', $s->interaksi_kerja_id) }}"
+                                        <a href="{{ route('interaksi_kerja.show', $s->ik_id) }}" class="btn btn-sm btn-info"
+                                                target="__blank"><i class="fa fa-file-pdfss"></i></a>
+                                        <a href="{{ route('file.download', ['file' => $s->ik_file]) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            @if ($update == 1)
+                                                <a href="{{ route('interaksi_kerja.edit', $s->ik_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
-                                            @if ($this->delete == 1)
-                                                <form action="{{ route('interaksi_kerja.destroy', $s->interaksi_kerja_id) }}" method="post"
+                                            @if ($delete == 1)
+                                                <form action="{{ route('interaksi_kerja.destroy', $s->ik_id) }}" method="post"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('delete')

@@ -52,7 +52,11 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
-
+                return view('admin.ik.index', [
+                    'name' => $this->name,
+                    'interaksi_kerja' => InteraksiKerja::leftJoin('departemens','interaksi_kerjas.departemen_id','=','departemens.departemen_id')->get(),
+                    'pages' => $this->get_access($this->name, auth()->user()->group_id)
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -69,7 +73,10 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-
+                return view('admin.ik.create', [
+                    'name' => $this->name,
+                    'departemen' => \App\Models\Departemen::all()
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -86,7 +93,25 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                    'ik_nama' => 'required',
+                    'ik_nomor' => 'required',
+                    'departemen_id' => 'required'
+                ]);
 
+                if(!$validate->fails()){
+                    $file = $request->file('ik_file');
+                    InteraksiKerja::create([
+                        'ik_nama' => $request->input('ik_nama'),
+                        'ik_nomor' => $request->input('ik_nomor'),
+                        'departemen_id' => $request->input('departemen_id'),
+                        'ik_file' => $file->storeAs('Interaksi_Kerja', time() . '.' . $file->getClientOriginalExtension()),
+                    ]);
+
+                    return redirect()->to(route('interaksi_kerja.index'))->with('success','Data Saved!');
+                } else {
+                    return redirect()->back()->with('failed', $validate->getMessageBag());
+                }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -103,7 +128,11 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
-
+                $data=$interaksiKerja->find(request()->segment(2));
+                return view('admin.ik.show', [
+                    'name' => $this->name,
+                    'file' =>asset('storage/'.$data->ik_file)
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -120,7 +149,11 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-
+                return view('admin.ik.edit', [
+                    'name' => $this->name,
+                    'departemen' => \App\Models\Departemen::all(),
+                    'ik' => $interaksiKerja->find(request()->segment(2))
+                ]);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -137,7 +170,17 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                    'ik_nama' => 'required',
+                    'ik_nomor' => 'required',
+                    'departemen_id' => 'required'
+                ]);
 
+                if(!$validate->fails()){
+                    //
+                } else {
+                    return redirect()->back()->with('failed', $validate->getMessageBag());
+                }
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -154,7 +197,14 @@ class InteraksiKerjaController extends Controller
         $this->get_access_page();
         if ($this->delete == 1) {
             try {
+                $data = $interaksiKerja->find(request()->segment(2));
+                $filePath = $data->ik_file;
+                if ($filePath && \Illuminate\Support\Facades\Storage::exists($filePath)) {
+                    \Illuminate\Support\Facades\Storage::delete($filePath);
+                }
+                InteraksiKerja::destroy($data->ik_id);
 
+                return redirect()->back()->with('success','Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

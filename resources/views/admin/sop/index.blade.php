@@ -64,11 +64,15 @@
                                         <td>{{ $s->sop_nomor }}</td>
                                         <td></td>
                                         <td>
-                                            @if ($this->update == 1)
+                                            <a href="{{ route('sop.show', $s->sop_id) }}" class="btn btn-sm btn-info"
+                                                target="__blank"><i class="fa fa-file-pdf"></i></a>
+                                            <a href="{{ route('file.download', ['file' => $s->sop_file]) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            @if ($update == 1)
                                                 <a href="{{ route('sop.edit', $s->sop_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
-                                            @if ($this->delete == 1)
+                                            @if ($delete == 1)
                                                 <form action="{{ route('sop.destroy', $s->sop_id) }}" method="post"
                                                     class="d-inline">
                                                     @csrf
