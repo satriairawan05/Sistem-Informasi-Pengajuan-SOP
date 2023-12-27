@@ -17,7 +17,7 @@
             console.log("Boo, inline PDFs are not supported by this browser");
         }
 
-        PDFObject.embed("{{ asset('storage/'. $file) }}", document.body)
+        PDFObject.embed("{{ asset('storage/' . $file->ibpr_file) }}", document.body)
     </script>
 </body>
 </html>

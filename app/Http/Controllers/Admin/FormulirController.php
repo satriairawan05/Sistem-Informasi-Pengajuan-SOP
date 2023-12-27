@@ -52,9 +52,15 @@ class FormulirController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
+                if (auth()->user()->group_id == 1) {
+                    $form = Formulir::leftJoin('departemens', 'formulirs.departemen_id', '=', 'departemens.departemen_id')->get();
+                } else {
+                    $form = Formulir::leftJoin('departemens', 'formulirs.departemen_id', '=', 'departemens.departemen_id')->where('formulirs.departemen_id', auth()->user()->departemen_id)->get();
+                }
+
                 return view('admin.form.index', [
                     'name' => $this->name,
-                    'formulir' => Formulir::leftJoin('departemens','formulirs.departemen_id','=','departemens.departemen_id')->get(),
+                    'formulir' => $form,
                     'pages' => $this->get_access($this->name, auth()->user()->group_id)
                 ]);
             } catch (\Illuminate\Database\QueryException $e) {
@@ -93,13 +99,13 @@ class FormulirController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'form_nama' => 'required',
                     'form_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     $file = $request->file('form_file');
                     Formulir::create([
                         'form_nama' => $request->input('form_nama'),
@@ -108,7 +114,7 @@ class FormulirController extends Controller
                         'form_file' => $file->storeAs('FORM', time() . '.' . $file->getClientOriginalExtension()),
                     ]);
 
-                    return redirect()->to(route('formulir.index'))->with('success','Data Saved!');
+                    return redirect()->to(route('formulir.index'))->with('success', 'Data Saved!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }
@@ -131,8 +137,26 @@ class FormulirController extends Controller
                 $data = $formulir->find(request()->segment(2));
                 return view('admin.form.show', [
                     'name' => $this->name,
-                    'file' => asset('storage/'.$data->form_file)
+                    'file' => $data
                 ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
+    }
+
+    /**
+     * Display the specified resource and download file.
+     */
+    public function download(Formulir $formulir)
+    {
+        $this->get_access_page();
+        if ($this->read == 1) {
+            try {
+                $data = $formulir->find(request()->segment(2));
+                return $this->download_file($data->form_file);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -170,13 +194,13 @@ class FormulirController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'form_nama' => 'required',
                     'form_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     //
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
@@ -204,7 +228,7 @@ class FormulirController extends Controller
                 }
                 Formulir::destroy($data->form_id);
 
-                return redirect()->back()->with('success','Data Deleted!');
+                return redirect()->back()->with('success', 'Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

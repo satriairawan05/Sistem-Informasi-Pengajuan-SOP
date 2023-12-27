@@ -41,7 +41,8 @@
             <div class="card">
                 @if ($create == 1)
                     <div class="d-flex justify-content-end mx-3 my-2">
-                        <a href="{{ route('interaksi_kerja.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('interaksi_kerja.create') }}" class="btn btn-sm btn-success"><i
+                                class="fa fa-plus"></i></a>
                     </div>
                 @endif
                 @if ($read == 1)
@@ -62,19 +63,20 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->ik_nama }}</td>
                                         <td>{{ $s->ik_nomor }}</td>
-                                        <td></td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
-                                        <a href="{{ route('interaksi_kerja.show', $s->ik_id) }}" class="btn btn-sm btn-info"
-                                                target="__blank"><i class="fa fa-file-pdfss"></i></a>
-                                        <a href="{{ route('file.download', ['file' => $s->ik_file]) }}"
-                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            <a href="{{ route('interaksi_kerja.show', $s->ik_id) }}"
+                                                class="btn btn-sm btn-info" target="__blank"><i
+                                                    class="fa fa-file-pdfss"></i></a>
+                                            {{-- <a href="{{ route('interaksi_kerja.download', $s->ik_id) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a> --}}
                                             @if ($update == 1)
                                                 <a href="{{ route('interaksi_kerja.edit', $s->ik_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                             @endif
                                             @if ($delete == 1)
-                                                <form action="{{ route('interaksi_kerja.destroy', $s->ik_id) }}" method="post"
-                                                    class="d-inline">
+                                                <form action="{{ route('interaksi_kerja.destroy', $s->ik_id) }}"
+                                                    method="post" class="d-inline">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-sm btn-danger"><i

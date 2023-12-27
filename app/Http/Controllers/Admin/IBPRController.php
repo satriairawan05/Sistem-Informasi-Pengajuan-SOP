@@ -52,9 +52,15 @@ class IBPRController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
-                return view('admin.ibpr.index',[
+                if (auth()->user()->group_id == 1) {
+                    $ibpr = IBPR::leftJoin('departemens', 'ibprs.departemen_id', '=', 'departemens.departemen_id')->get();
+                } else {
+                    $ibpr = IBPR::leftJoin('departemens', 'ibprs.departemen_id', '=', 'departemens.departemen_id')->where('ibprs.departemen_id', auth()->user()->departemen_id)->get();
+                }
+
+                return view('admin.ibpr.index', [
                     'name' => $this->name,
-                    'ibpr' =>IBPR::leftJoin('departemens','ibprs.departemen_id','=','departemens.departemen_id')->get(),
+                    'ibpr' => $ibpr,
                     'pages' => $this->get_access($this->name, auth()->user()->group_id)
                 ]);
             } catch (\Illuminate\Database\QueryException $e) {
@@ -73,7 +79,7 @@ class IBPRController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-                return view('admin.ibpr.create',[
+                return view('admin.ibpr.create', [
                     'name' => $this->name,
                     'departemen' => \App\Models\Departemen::all()
                 ]);
@@ -93,13 +99,13 @@ class IBPRController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'ibpr_nama' => 'required',
                     'ibpr_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     $file = $request->file('ibpr_file');
                     IBPR::create([
                         'ibpr_nama' => $request->input('ibpr_nama'),
@@ -108,7 +114,7 @@ class IBPRController extends Controller
                         'ibpr_file' => $file->storeAs('IBPR', time() . '.' . $file->getClientOriginalExtension()),
                     ]);
 
-                    return redirect()->to(route('ibpr.index'))->with('success','Data Saved!');
+                    return redirect()->to(route('ibpr.index'))->with('success', 'Data Saved!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }
@@ -131,8 +137,26 @@ class IBPRController extends Controller
                 $data = $iBPR->find(request()->segment(2));
                 return view('admin.ibpr.show', [
                     'name' => $this->name,
-                    'file' => asset('storage/'.$data->ibpr_file)
+                    'file' => $data
                 ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
+    }
+
+    /**
+     * Display the specified resource and download file.
+     */
+    public function download(IBPR $iBPR)
+    {
+        $this->get_access_page();
+        if ($this->read == 1) {
+            try {
+                $data = $iBPR->find(request()->segment(2));
+                return $this->download_file($data->ibpr_file);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -149,7 +173,7 @@ class IBPRController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-                return view('admin.ibpr.edit',[
+                return view('admin.ibpr.edit', [
                     'name' => $this->name,
                     'ibpr' => $iBPR->find(request()->segment(2)),
                     'departemen' => \App\Models\Departemen::all()
@@ -170,13 +194,13 @@ class IBPRController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'ibpr_nama' => 'required',
                     'ibpr_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     //
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
@@ -204,7 +228,7 @@ class IBPRController extends Controller
                 }
                 IBPR::destroy($data->ibpr_id);
 
-                return redirect()->back()->with('success','Data Deleted!');
+                return redirect()->back()->with('success', 'Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

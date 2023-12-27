@@ -62,7 +62,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->departemen_name }}</td>
+                                        <td>{{ $d->departemen_nama }}</td>
                                         <td>
                                             @if ($update == 1)
                                                 <a href="{{ route('departemen.edit', $d->departemen_id) }}"
@@ -95,7 +95,6 @@
     <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#myTable").dataTable({

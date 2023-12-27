@@ -52,9 +52,15 @@ class SOPController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
+                if (auth()->user()->group_id == 1) {
+                    $sop = SOP::leftJoin('departemens', 'sops.departemen_id', '=', 'departemens.departemen_id')->get();
+                } else {
+                    $sop = SOP::leftJoin('departemens', 'sops.departemen_id', '=', 'departemens.departemen_id')->where('sops.departemen_id', auth()->user()->departemen_id)->get();
+                }
+
                 return view('admin.sop.index', [
                     'name' => $this->name,
-                    'sop' => SOP::leftJoin('departemens','sops.departemen_id','=','departemens.departemen_id')->get(),
+                    'sop' => $sop,
                     'pages' => $this->get_access($this->name, auth()->user()->group_id)
                 ]);
             } catch (\Illuminate\Database\QueryException $e) {
@@ -93,13 +99,13 @@ class SOPController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'sop_nama' => 'required',
                     'sop_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     $file = $request->file('sop_file');
                     SOP::create([
                         'sop_nama' => $request->input('sop_nama'),
@@ -108,7 +114,7 @@ class SOPController extends Controller
                         'sop_file' => $file->storeAs('SOP', time() . '.' . $file->getClientOriginalExtension()),
                     ]);
 
-                    return redirect()->to(route('sop.index'))->with('success','Data Saved!');
+                    return redirect()->to(route('sop.index'))->with('success', 'Data Saved!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }
@@ -131,8 +137,26 @@ class SOPController extends Controller
                 $data = $sOP->find(request()->segment(2));
                 return view('admin.sop.show', [
                     'name' => $this->name,
-                    'file' => asset('storage/'.$data->sop_file)
+                    'file' => $data
                 ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
+    }
+
+    /**
+     * Display the specified resource and download file.
+     */
+    public function download(SOP $sOP)
+    {
+        $this->get_access_page();
+        if ($this->read == 1) {
+            try {
+                $data = $sOP->find(request()->segment(2));
+                return $this->download_file($data->sop_file);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -170,13 +194,13 @@ class SOPController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'sop_nama' => 'required',
                     'sop_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     //
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
@@ -204,7 +228,7 @@ class SOPController extends Controller
                 }
                 SOP::destroy($data->sop_id);
 
-                return redirect()->back()->with('success','Data Deleted!');
+                return redirect()->back()->with('success', 'Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

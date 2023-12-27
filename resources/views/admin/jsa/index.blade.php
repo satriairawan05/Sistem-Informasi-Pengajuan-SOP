@@ -62,12 +62,12 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->jsa_nama }}</td>
                                         <td>{{ $s->jsa_nomor }}</td>
-                                        <td></td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                         <a href="{{ route('jsa.show', $s->jsa_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>
-                                        <a href="{{ route('file.download', ['file' => $s->jsa_file]) }}"
-                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                        {{-- <a href="{{ route('jsa.download', $s->jsa_id) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a> --}}
                                             @if ($update == 1)
                                                 <a href="{{ route('jsa.edit', $s->jsa_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>

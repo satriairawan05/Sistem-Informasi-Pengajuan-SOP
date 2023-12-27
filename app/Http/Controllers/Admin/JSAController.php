@@ -52,9 +52,15 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->read == 1) {
             try {
+                if (auth()->user()->group_id == 1) {
+                    $jsa = JSA::leftJoin('departemens', 'jsas.departemen_id', '=', 'departemens.departemen_id')->get();
+                } else {
+                    $jsa = JSA::leftJoin('departemens', 'jsas.departemen_id', '=', 'departemens.departemen_id')->where('jsas.departemen_id', auth()->user()->departemen_id)->get();
+                }
+
                 return view('admin.jsa.index', [
                     'name' => $this->name,
-                    'jsa' => JSA::leftJoin('departemens','jsas.departemen_id','=','departemens.departemen_id')->get(),
+                    'jsa' => $jsa,
                     'pages' => $this->get_access($this->name, auth()->user()->group_id)
                 ]);
             } catch (\Illuminate\Database\QueryException $e) {
@@ -93,13 +99,13 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->create == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'jsa_nama' => 'required',
                     'jsa_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     $file = $request->file('jsa_file');
                     JSA::create([
                         'jsa_nama' => $request->input('jsa_nama'),
@@ -108,7 +114,7 @@ class JSAController extends Controller
                         'jsa_file' => $file->storeAs('JSA', time() . '.' . $file->getClientOriginalExtension()),
                     ]);
 
-                    return redirect()->to(route('jsa.index'))->with('success','Data Saved!');
+                    return redirect()->to(route('jsa.index'))->with('success', 'Data Saved!');
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
                 }
@@ -131,8 +137,26 @@ class JSAController extends Controller
                 $data = $jSA->find(request()->segment(2));
                 return view('admin.jsa.show', [
                     'name' => $this->name,
-                    'file' => asset('storage/'.$data->jsa_file)
+                    'file' => $data
                 ]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->with('failed', $e->getMessage());
+            }
+        } else {
+            return redirect()->back()->with('failed', 'You not Have Authority!');
+        }
+    }
+
+    /**
+     * Display the specified resource and download file.
+     */
+    public function download(JSA $jSA)
+    {
+        $this->get_access_page();
+        if ($this->read == 1) {
+            try {
+                $data = $jSA->find(request()->segment(2));
+                return $this->download_file($data->jsa_file);
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }
@@ -170,13 +194,13 @@ class JSAController extends Controller
         $this->get_access_page();
         if ($this->update == 1) {
             try {
-                $validate = \Illuminate\Support\Facades\Validator::make($request->all(),[
+                $validate = \Illuminate\Support\Facades\Validator::make($request->all(), [
                     'jsa_nama' => 'required',
                     'jsa_nomor' => 'required',
                     'departemen_id' => 'required'
                 ]);
 
-                if(!$validate->fails()){
+                if (!$validate->fails()) {
                     //
                 } else {
                     return redirect()->back()->with('failed', $validate->getMessageBag());
@@ -204,7 +228,7 @@ class JSAController extends Controller
                 }
                 JSA::destroy($data->jsa_id);
 
-                return redirect()->back()->with('success','Data Deleted!');
+                return redirect()->back()->with('success', 'Data Deleted!');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->with('failed', $e->getMessage());
             }

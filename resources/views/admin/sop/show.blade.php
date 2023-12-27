@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ env('APP_NAME') }} || {{ $name }}</title>
 </head>
+
 <body>
     <!-- PdfObject JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js"
@@ -18,7 +20,8 @@
             console.log("Boo, inline PDFs are not supported by this browser");
         }
 
-        PDFObject.embed("{{ $file }}", document.body)
+        PDFObject.embed("{{ asset('storage/' . $file->sop_file) }}", document.body)
     </script>
 </body>
+
 </html>

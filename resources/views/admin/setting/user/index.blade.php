@@ -69,7 +69,7 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->nik ?? 'Not Found' }}</td>
                                         <td>{{ $user->group_name ?? 'Not Found' }}</td>
-                                        <td>{{ $user->departemen_name ?? 'Not Found' }}</td>
+                                        <td>{{ $user->departemen_nama ?? 'Not Found' }}</td>
                                         <td>
                                             @if ($update == 1)
                                                 <a href="{{ route('account.edit', $user->id) }}"
@@ -103,7 +103,6 @@
     <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#myTable").dataTable({

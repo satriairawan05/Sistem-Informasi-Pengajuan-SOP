@@ -62,12 +62,12 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->ibpr_nama }}</td>
                                         <td>{{ $s->ibpr_nomor }}</td>
-                                        <td></td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                             <a href="{{ route('ibpr.show', $s->ibpr_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>
-                                            <a href="{{ route('file.download', ['file' => $s->ibpr_file]) }}"
-                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            {{-- <a href="{{ route('ibpr.download', $s->ibpr_id) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a> --}}
                                             @if ($update == 1)
                                                 <a href="{{ route('ibpr.edit', $s->ibpr_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>

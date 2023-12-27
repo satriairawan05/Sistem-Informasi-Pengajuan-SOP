@@ -62,12 +62,12 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->sop_nama }}</td>
                                         <td>{{ $s->sop_nomor }}</td>
-                                        <td></td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                             <a href="{{ route('sop.show', $s->sop_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>
-                                            <a href="{{ route('file.download', ['file' => $s->sop_file]) }}"
-                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a>
+                                            {{-- <a href="{{ route('sop.download', $s->sop_id) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a> --}}
                                             @if ($update == 1)
                                                 <a href="{{ route('sop.edit', $s->sop_id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>

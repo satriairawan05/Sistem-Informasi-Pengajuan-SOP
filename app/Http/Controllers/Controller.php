@@ -21,25 +21,20 @@ class Controller extends BaseController
             ->get();
     }
 
-    public function get_file_access(string $userGroup)
-    {
-        return \App\Models\User::leftJoin('group_pages', 'users.group_id', '=', 'group_pages.group_id')
-            ->leftJoin('groups', 'users.group_id', '=', 'groups.group_id')
-            ->leftJoin('pages', 'group_pages.page_id', '=', 'pages.page_id')
-            ->where('pages.action', '=', 'Download')
-            ->where('group_pages.group_id', '=', $userGroup)
-            ->select(['group_pages.access', 'pages.page_name', 'pages.action'])
-            ->get();
-    }
-
     public function download_file($filePath)
     {
-        $pathToFile = asset('storage/' . $filePath);
+        $pathToFile = \Illuminate\Support\Facades\Storage::exists($filePath);
 
-        if (!file_exists($pathToFile)) {
+        if (!\Illuminate\Support\Facades\Storage::exists($pathToFile)) {
             return redirect()->back()->with('error', 'File not found');
         }
 
-        return response()->download($pathToFile);
+        \Illuminate\Support\Facades\Log::info("File yang ada di storage :" . $pathToFile);
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+
+        return \Illuminate\Http\Response::download($pathToFile, "download.pdf", $headers);
     }
 }
