@@ -3,7 +3,7 @@
 @section('app')
     <section class="section">
         <div class="section-header">
-            <h1>Name</h1>
+            <h1>{{ $name }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('ibpr.index') }}">{{ $name }}</a></div>
@@ -19,10 +19,8 @@
                         @method('put')
                         <div class="form-group">
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="ibpr_nama">Name <span class="text-danger">*</span> </label>
-                                </div>
-                                <div class="col-10">
                                     <input type="text"
                                         class="ibpr-control form-control-sm @error('form_nama')
                                     is-invalid
@@ -37,10 +35,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="ibpr_nomor">Nomor <span class="text-danger">*</span> </label>
-                                </div>
-                                <div class="col-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('ibpr_nomor')
                                     is-invalidss
@@ -55,10 +51,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="departemen_id">Departemen <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-10">
                                     <select class="form-control form-control-sm" name="departemen_id">
                                         @foreach ($departemen as $d)
                                             @if (old('departemen_id') == $d->departemen_id)
@@ -74,10 +68,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="ibpr_file">File</label>
-                                </div>
-                                <div class="col-10">
                                     <input type="file" name="ibpr_file" id="ibpr_file"
                                         class="form-control form-control-file">
                                 </div>

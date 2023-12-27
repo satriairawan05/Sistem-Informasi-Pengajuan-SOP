@@ -3,7 +3,7 @@
 @section('app')
     <section class="section">
         <div class="section-header">
-            <h1>Name</h1>
+            <h1>{{ $name }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('sop.index') }}">{{ $name }}</a></div>
@@ -18,10 +18,8 @@
                         @csrf
                         <div class="form-group">
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="sop_nama">Name <span class="text-danger">*</span> </label>
-                                </div>
-                                <div class="col-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('sop_nama')
                                     is-invalidss
@@ -36,10 +34,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="sop_nomor">Nomor <span class="text-danger">*</span> </label>
-                                </div>
-                                <div class="col-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('sop_nomor')
                                     is-invalidss
@@ -54,10 +50,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="departemen_id">Departemen <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-10">
                                     <select class="form-control form-control-sm" name="departemen_id">
                                         @foreach ($departemen as $d)
                                             @if (old('departemen_id') == $d->departemen_id)
@@ -73,10 +67,8 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-2">
+                                <div class="col-12">
                                     <label for="sop_file">File</label>
-                                </div>
-                                <div class="col-10">
                                     <input type="file" name="sop_file" id="sop_file"
                                         class="form-control form-control-file">
                                 </div>
