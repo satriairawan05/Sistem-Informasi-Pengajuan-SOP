@@ -11,6 +11,7 @@
   @stack('js')
 
   <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
   @if (session('success'))
       <script type="text/javascript">
