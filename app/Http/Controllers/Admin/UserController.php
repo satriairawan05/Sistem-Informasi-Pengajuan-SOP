@@ -148,7 +148,7 @@ class UserController extends Controller
                 if ($this->update == 1) {
                     return view('admin.setting.user.edit', [
                         'name' => $this->name,
-                        'user' => $user,
+                        'user' => $user->find(request()->segment(2)),
                         'departemen' => \App\Models\Departemen::all(),
                         'group' => \App\Models\Group::all()
                     ]);
@@ -178,7 +178,8 @@ class UserController extends Controller
                 ]);
 
                 if (!$validated->fails()) {
-                    User::where('id', $user->id)->update([
+                    $data = $user->find(request()->segment(2));
+                    User::where('id', $data->id)->update([
                         'name' => $request->input('name'),
                         'email' => $request->input('email'),
                         'password' => bcrypt($request->input('password')),

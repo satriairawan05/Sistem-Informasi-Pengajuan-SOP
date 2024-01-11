@@ -14,7 +14,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('account.update',$user->id) }}" method="post">
+                    <form action="{{ route('account.update', $user->id) }}" method="post">
                         @csrf
                         @method('put')
                         <div class="form-group">
@@ -25,8 +25,8 @@
                                         class="form-control form-control-sm @error('name')
                                     is-invalid
                                 @enderror"
-                                        id="name" placeholder="Masukan Nama" value="{{ old('name',$user->name) }}" name="name"
-                                        required>
+                                        id="name" placeholder="Masukan Nama" value="{{ old('name', $user->name) }}"
+                                        name="name" required>
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -40,7 +40,7 @@
                                         class="form-control form-control-sm @error('email')
                                     is-invalid
                                 @enderror"
-                                        id="email" placeholder="Masukan Email" value="{{ old('email',$user->email) }}"
+                                        id="email" placeholder="Masukan Email" value="{{ old('email', $user->email) }}"
                                         name="email" required>
                                     @error('email')
                                         <div class="invalid-feedback">
@@ -91,7 +91,7 @@
                                         class="form-control form-control-sm @error('nik')
                                     is-invalid
                                 @enderror"
-                                        id="nik" placeholder="Masukan NIK" value="{{ old('nik',$user->nik) }}"
+                                        id="nik" placeholder="Masukan NIK" value="{{ old('nik', $user->nik) }}"
                                         name="nik" required>
                                     @error('nik')
                                         <div class="invalid-feedback">
@@ -105,7 +105,7 @@
                                     <label for="departemen_id">Departemen <span class="text-danger">*</span></label>
                                     <select class="select2 form-control form-control-sm" name="departemen_id">
                                         @foreach ($departemen as $d)
-                                            @if (old('departemen_id',$user->departemen_id) == $d->departemen_id)
+                                            @if (old('departemen_id', $user->departemen_id) == $d->departemen_id)
                                                 <option value="{{ $d->departemen_id }}" selected>
                                                     {{ $d->departemen_name }}
                                                 </option>
@@ -120,7 +120,7 @@
                                     <label for="group_id">Role <span class="text-danger">*</span></label>
                                     <select class="select2 form-control form-control-sm" name="group_id">
                                         @foreach ($group as $d)
-                                            @if (old('group_id',$user->group_id) == $d->group_id)
+                                            @if (old('group_id', $user->group_id) == $d->group_id)
                                                 <option value="{{ $d->group_id }}" selected>{{ $d->group_name }}
                                                 </option>
                                             @else

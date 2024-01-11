@@ -164,7 +164,7 @@ class GroupController extends Controller
     {
         if ($group->group_id != 1) {
             try {
-                Group::where('group_id', $group->group_id)->delete();
+                Group::destroy($group->group_id);
 
                 $pages = \App\Models\Page::all();
                 foreach ($pages as $page) {
