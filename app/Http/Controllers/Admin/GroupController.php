@@ -164,12 +164,13 @@ class GroupController extends Controller
     {
         if ($group->group_id != 1) {
             try {
-                Group::destroy($group->group_id);
+                $data = $group->find(request()->segment(2));
+                Group::destroy($data->group_id);
 
                 $pages = \App\Models\Page::all();
                 foreach ($pages as $page) {
                     $groupPage = \App\Models\GroupPage::where([
-                        'group_id' => $group->group_id,
+                        'group_id' => $data->group_id,
                         'page_id' => $page->page_id,
                     ])->first();
                     if ($groupPage) {
