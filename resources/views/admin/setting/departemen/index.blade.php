@@ -62,7 +62,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->departemen_nama }}</td>
+                                        <td>{{ $d->departemen_name }}</td>
                                         <td>
                                             @if ($update == 1)
                                                 <a href="{{ route('departemen.edit', $d->departemen_id) }}"
