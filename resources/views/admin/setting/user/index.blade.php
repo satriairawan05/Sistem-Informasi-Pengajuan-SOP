@@ -69,7 +69,7 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->nik ?? 'Not Found' }}</td>
                                         <td>{{ $user->group_name ?? 'Not Found' }}</td>
-                                        <td>{{ $user->departemen_nama ?? 'Not Found' }}</td>
+                                        <td>{{ $user->departemen_name ?? 'Not Found' }}</td>
                                         <td>
                                             @if ($update == 1)
                                                 <a href="{{ route('account.edit', $user->id) }}"

@@ -13,43 +13,43 @@ class DepartemenSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Human Safety Environment'
+            'departemen_name' => 'Human Safety Environment'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Human Resource Development & General Affair'
+            'departemen_name' => 'Human Resource Development & General Affair'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Mine Operation'
+            'departemen_name' => 'Mine Operation'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Logistic'
+            'departemen_name' => 'Logistic'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Plant'
+            'departemen_name' => 'Plant'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Finance'
+            'departemen_name' => 'Finance'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'TAX'
+            'departemen_name' => 'TAX'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Geologi & Explorasi'
+            'departemen_name' => 'Geologi & Explorasi'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Barging & Shipping'
+            'departemen_name' => 'Barging & Shipping'
         ]);
 
         \App\Models\Departemen::create([
-            'departemen_nama' => 'Production'
+            'departemen_name' => 'Production'
         ]);
     }
 }

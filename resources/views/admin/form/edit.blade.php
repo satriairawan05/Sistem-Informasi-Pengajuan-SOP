@@ -57,10 +57,10 @@
                                         @foreach ($departemen as $d)
                                             @if (old('departemen_id', $form->departemen_id) == $d->departemen_id)
                                                 <option value="{{ $d->departemen_id }}" selected>
-                                                    {{ $d->departemen_nama }}
+                                                    {{ $d->departemen_name }}
                                                 </option>
                                             @else
-                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_nama }}
+                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_name }}
                                                 </option>
                                             @endif
                                         @endforeach

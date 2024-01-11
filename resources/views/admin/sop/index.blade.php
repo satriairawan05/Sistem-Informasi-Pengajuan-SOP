@@ -62,7 +62,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->sop_nama }}</td>
                                         <td>{{ $s->sop_nomor }}</td>
-                                        <td>{{ $s->departemen_nama }}</td>
+                                        <td>{{ $s->departemen_name }}</td>
                                         <td>
                                             <a href="{{ route('sop.show', $s->sop_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>

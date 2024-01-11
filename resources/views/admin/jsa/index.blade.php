@@ -62,7 +62,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->jsa_nama }}</td>
                                         <td>{{ $s->jsa_nomor }}</td>
-                                        <td>{{ $s->departemen_nama }}</td>
+                                        <td>{{ $s->departemen_name }}</td>
                                         <td>
                                         <a href="{{ route('jsa.show', $s->jsa_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>

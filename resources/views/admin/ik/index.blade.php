@@ -63,7 +63,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->ik_nama }}</td>
                                         <td>{{ $s->ik_nomor }}</td>
-                                        <td>{{ $s->departemen_nama }}</td>
+                                        <td>{{ $s->departemen_name }}</td>
                                         <td>
                                             <a href="{{ route('interaksi_kerja.show', $s->ik_id) }}"
                                                 class="btn btn-sm btn-info" target="__blank"><i
