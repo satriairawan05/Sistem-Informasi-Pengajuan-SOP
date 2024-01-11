@@ -207,7 +207,7 @@ class UserController extends Controller
     {
         return view('admin.setting.user.change',[
             'name' => $this->name,
-            'user' => $user
+            'user' => $user->find(request()->segment(2))
         ]);
     }
 
