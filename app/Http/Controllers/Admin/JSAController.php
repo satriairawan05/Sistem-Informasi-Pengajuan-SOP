@@ -55,7 +55,7 @@ class JSAController extends Controller
                 if (auth()->user()->group_id == 1) {
                     $jsa = JSA::leftJoin('departemens', 'jsas.departemen_id', '=', 'departemens.departemen_id')->get();
                 } else {
-                    $jsa = JSA::leftJoin('departemens', 'jsas.departemen_id', '=', 'departemens.departemen_id')->where('jsas.departemen_id', auth()->user()->departemen_id)->get();
+                    $jsa = JSA::leftJoin('departemens', 'jsas.departemen_id', '=', 'departemens.departemen_id')->where('departemens.departemen_id', auth()->user()->departemen_id)->get();
                 }
 
                 return view('admin.jsa.index', [

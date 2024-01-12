@@ -55,7 +55,7 @@ class IBPRController extends Controller
                 if (auth()->user()->group_id == 1) {
                     $ibpr = IBPR::leftJoin('departemens', 'ibprs.departemen_id', '=', 'departemens.departemen_id')->get();
                 } else {
-                    $ibpr = IBPR::leftJoin('departemens', 'ibprs.departemen_id', '=', 'departemens.departemen_id')->where('ibprs.departemen_id', auth()->user()->departemen_id)->get();
+                    $ibpr = IBPR::leftJoin('departemens', 'ibprs.departemen_id', '=', 'departemens.departemen_id')->where('departemens.departemen_id', auth()->user()->departemen_id)->get();
                 }
 
                 return view('admin.ibpr.index', [

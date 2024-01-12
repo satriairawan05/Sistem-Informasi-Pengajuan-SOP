@@ -55,7 +55,7 @@ class InteraksiKerjaController extends Controller
                 if (auth()->user()->group_id == 1) {
                     $ik = InteraksiKerja::leftJoin('departemens', 'interaksi_kerjas.departemen_id', '=', 'departemens.departemen_id')->get();
                 } else {
-                    $ik = InteraksiKerja::leftJoin('departemens', 'interaksi_kerjas.departemen_id', '=', 'departemens.departemen_id')->where('interaksi_kerjas.departemen_id', auth()->user()->departemen_id)->get();
+                    $ik = InteraksiKerja::leftJoin('departemens', 'interaksi_kerjas.departemen_id', '=', 'departemens.departemen_id')->where('departemens.departemen_id', auth()->user()->departemen_id)->get();
                 }
 
                 return view('admin.ik.index', [

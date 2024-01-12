@@ -55,7 +55,7 @@ class SOPController extends Controller
                 if (auth()->user()->group_id == 1) {
                     $sop = SOP::leftJoin('departemens', 'sops.departemen_id', '=', 'departemens.departemen_id')->get();
                 } else {
-                    $sop = SOP::leftJoin('departemens', 'sops.departemen_id', '=', 'departemens.departemen_id')->where('sops.departemen_id', auth()->user()->departemen_id)->get();
+                    $sop = SOP::leftJoin('departemens', 'sops.departemen_id', '=', 'departemens.departemen_id')->where('departemens.departemen_id', auth()->user()->departemen_id)->get();
                 }
 
                 return view('admin.sop.index', [
