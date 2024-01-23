@@ -63,11 +63,11 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->ik_nama }}</td>
                                         <td>{{ $s->ik_nomor }}</td>
-                                        <td>{{ $s->departemen_name }}</td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                             <a href="{{ route('interaksi_kerja.show', $s->ik_id) }}"
                                                 class="btn btn-sm btn-info" target="__blank"><i
-                                                    class="fa fa-file-pdfss"></i></a>
+                                                    class="fa fa-file-pdf"></i></a>
                                             {{-- <a href="{{ route('interaksi_kerja.download', $s->ik_id) }}"
                                                 class="btn btn-sm btn-secondary"><i class="fa fa-file-download"></i></a> --}}
                                             @if ($update == 1)

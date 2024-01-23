@@ -63,7 +63,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->form_nama }}</td>
                                         <td>{{ $s->form_nomor }}</td>
-                                        <td>{{ $s->departemen_name }}</td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                             <a href="{{ route('formulir.show', $s->form_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>

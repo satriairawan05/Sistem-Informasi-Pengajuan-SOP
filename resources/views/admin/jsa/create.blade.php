@@ -38,7 +38,7 @@
                                         class="form-control form-control-sm @error('jsa_nomor')
                                     is-invalidss
                                 @enderror"
-                                        id="jsa_nomor" placeholder="Masukan Nama" value="{{ old('jsa_nomor') }}"
+                                        id="jsa_nomor" placeholder="Masukan Nomor" value="{{ old('jsa_nomor') }}"
                                         name="jsa_nomor" required>
                                     @error('jsa_nomor')
                                         <div class="invalid-feedback">
@@ -57,7 +57,7 @@
                                                     {{ $d->departemen_name }}
                                                 </option>
                                             @else
-                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_name }}
+                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_nama }}
                                                 </option>
                                             @endif
                                         @endforeach

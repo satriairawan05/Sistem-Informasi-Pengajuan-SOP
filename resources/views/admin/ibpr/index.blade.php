@@ -62,7 +62,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $s->ibpr_nama }}</td>
                                         <td>{{ $s->ibpr_nomor }}</td>
-                                        <td>{{ $s->departemen_name }}</td>
+                                        <td>{{ $s->departemen_nama }}</td>
                                         <td>
                                             <a href="{{ route('ibpr.show', $s->ibpr_id) }}" class="btn btn-sm btn-info"
                                                 target="__blank"><i class="fa fa-file-pdf"></i></a>

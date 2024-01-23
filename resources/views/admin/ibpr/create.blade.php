@@ -40,7 +40,7 @@
                                         class="form-control form-control-sm @error('ibpr_nomor')
                                     is-invalidss
                                 @enderror"
-                                        id="ibpr_nomor" placeholder="Masukan Nama" value="{{ old('ibpr_nomor') }}"
+                                        id="ibpr_nomor" placeholder="Masukan Nomor" value="{{ old('ibpr_nomor') }}"
                                         name="ibpr_nomor" required>
                                     @error('ibpr_nomor')
                                         <div class="invalid-feedback">
@@ -59,7 +59,7 @@
                                                     {{ $d->departemen_name }}
                                                 </option>
                                             @else
-                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_name }}
+                                                <option value="{{ $d->departemen_id }}">{{ $d->departemen_nama }}
                                                 </option>
                                             @endif
                                         @endforeach
