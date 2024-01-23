@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>{{ env('APP_NAME') }}</title>
+    <link rel="icon" href="{{ asset('assets/img/logoakg.png') }}" type="image/gif" />
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -53,7 +54,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control" name="email"
+                                        <input id="email" type="email" class="form-control" name="email" placeholder="Example : nova@akg.com"
                                             tabindex="1" required autofocus>
                                         <div class="invalid-feedback">
                                             Please fill in your email
@@ -64,7 +65,7 @@
                                         <div class="d-block">
                                             <label for="password" class="control-label">Password</label>
                                         </div>
-                                        <input id="password" type="password" class="form-control" name="password"
+                                        <input id="password" type="password" class="form-control" name="password" placeholder="Enter Password"
                                             tabindex="2" required>
                                         <div class="invalid-feedback">
                                             please fill in your password
@@ -88,7 +89,7 @@
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; AKG 2023 - {{ date('Y') }}
+                            Copyright &copy; <a href="https://alamkaryagemilang.com/" class="text-decoration-none">Alam Karya Gemilang</a> 2023 - {{ date('Y') }}
                         </div>
                     </div>
                 </div>
