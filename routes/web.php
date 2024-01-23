@@ -35,23 +35,23 @@ Route::middleware(['auth'])->group(function(){
 
     // Formulir
     Route::resource('formulir',\App\Http\Controllers\Admin\FormulirController::class);
-    Route::get('formulir/{formulir}/download',[\App\Http\Controllers\Admin\FormulirController::class, 'download'])->name('formulir.download');
+    // Route::get('formulir/{formulir}/download',[\App\Http\Controllers\Admin\FormulirController::class, 'download'])->name('formulir.download');
 
     // Interaksi Kerja
     Route::resource('interaksi_kerja', \App\Http\Controllers\Admin\InteraksiKerjaController::class);
-    Route::get('interaksi_kerja/{interaksi_kerja}/download',[\App\Http\Controllers\Admin\InteraksiKerjaController::class, 'download'])->name('interaksi_kerja.download');
+    // Route::get('interaksi_kerja/{interaksi_kerja}/download',[\App\Http\Controllers\Admin\InteraksiKerjaController::class, 'download'])->name('interaksi_kerja.download');
 
     // IBPR
     Route::resource('ibpr',\App\Http\Controllers\Admin\IBPRController::class);
-    Route::get('ibpr/{ibpr}/download',[\App\Http\Controllers\Admin\IBPRController::class, 'download'])->name('ibpr.download');
+    // Route::get('ibpr/{ibpr}/download',[\App\Http\Controllers\Admin\IBPRController::class, 'download'])->name('ibpr.download');
 
     // JSA
     Route::resource('jsa',\App\Http\Controllers\Admin\JSAController::class);
-    Route::get('jsa/{jsa}/download',[\App\Http\Controllers\Admin\JSAController::class, 'download'])->name('jsa.download');
+    // Route::get('jsa/{jsa}/download',[\App\Http\Controllers\Admin\JSAController::class, 'download'])->name('jsa.download');
 
     // SOP
     Route::resource('sop',\App\Http\Controllers\Admin\SOPController::class);
-    Route::get('sop/{sop}/download',[\App\Http\Controllers\Admin\SOPController::class, 'download'])->name('sop.download');
+    // Route::get('sop/{sop}/download',[\App\Http\Controllers\Admin\SOPController::class, 'download'])->name('sop.download');
 
     // User
     Route::resource('account', \App\Http\Controllers\Admin\UserController::class);
