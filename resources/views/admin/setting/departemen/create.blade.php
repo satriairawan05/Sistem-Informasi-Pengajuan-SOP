@@ -21,12 +21,12 @@
                                 <div class="col-12">
                                     <label for="departemen_name">Departemen Name <span class="text-danger">*</span> </label>
                                     <input type="text"
-                                        class="form-control form-control-sm @error('departemen_name')
+                                        class="form-control form-control-sm @error('departemen_nama')
                                     is-invalid
                                 @enderror"
-                                        id="departemen_name" placeholder="Masukan Nama Departemen"
-                                        value="{{ old('departemen_name') }}" name="departemen_name" required>
-                                    @error('departemen_name')
+                                        id="departemen_nama" placeholder="Masukan Nama Departemen"
+                                        value="{{ old('departemen_nama') }}" name="departemen_nama" required>
+                                    @error('departemen_nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
